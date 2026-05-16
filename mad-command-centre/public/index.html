@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAD Command Centre</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">MAD</div>
+        <div class="sidebar-subtitle">Command Centre</div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-section-label">MODULES</div>
+        <ul class="nav-list">
+          <li class="nav-item active" data-module="weekly-report">
+            <span class="nav-index">01</span>
+            <span class="nav-label">Weekly GM Report</span>
+          </li>
+          <li class="nav-item" data-module="dsp-pitch">
+            <span class="nav-index">02</span>
+            <span class="nav-label">DSP Pitch List</span>
+          </li>
+          <li class="nav-item" data-module="artist-scorecard">
+            <span class="nav-index">03</span>
+            <span class="nav-label">Artist Scorecard</span>
+          </li>
+          <li class="nav-item" data-module="youtube-digest">
+            <span class="nav-index">04</span>
+            <span class="nav-label">YouTube Digest</span>
+          </li>
+          <li class="nav-item" data-module="email-drafter">
+            <span class="nav-index">05</span>
+            <span class="nav-label">Email Drafter</span>
+          </li>
+          <li class="nav-item" data-module="meeting-log">
+            <span class="nav-index">06</span>
+            <span class="nav-label">Meeting Log</span>
+          </li>
+          <li class="nav-item" data-module="madcapp-estimator">
+            <span class="nav-index">07</span>
+            <span class="nav-label">MADCAPP Estimator</span>
+          </li>
+          <li class="nav-item" data-module="campaign-planner">
+            <span class="nav-index">08</span>
+            <span class="nav-label">Campaign Planner</span>
+          </li>
+          <li class="nav-item" data-module="data-proof">
+            <span class="nav-index">09</span>
+            <span class="nav-label">Data Proof Builder</span>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-label">M.A.D Solutions</div>
+        <div class="sidebar-footer-meta" id="current-date"></div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <header class="topbar">
+        <div class="topbar-module-name" id="topbar-title">Weekly GM Report</div>
+        <div class="topbar-meta">
+          <span class="status-dot"></span>
+          <span class="topbar-status">SYSTEM READY</span>
+        </div>
+      </header>
+
+      <div class="content" id="module-content">
+
+        <!-- Weekly GM Report -->
+        <section class="module-panel active" id="panel-weekly-report">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 01</div>
+            <div class="placeholder-title">Weekly GM Report Builder</div>
+            <div class="placeholder-desc">Paste or upload departmental inputs. Claude consolidates, flags anomalies, and outputs a formatted PDF or DOCX for the CEO in under 10 minutes.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- DSP Pitch List -->
+        <section class="module-panel" id="panel-dsp-pitch">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 02</div>
+            <div class="placeholder-title">DSP Pitch List Generator</div>
+            <div class="placeholder-desc">Upload a FUGA export CSV. Claude scores each track against pitch criteria and produces a ranked pitch list as PPTX or in-dashboard view.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- Artist Scorecard -->
+        <section class="module-panel" id="panel-artist-scorecard">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 03</div>
+            <div class="placeholder-title">Artist Monthly Scorecard</div>
+            <div class="placeholder-desc">Upload FUGA, Spotify, Apple Music exports. System generates a unified scorecard with streams, territory breakdown, revenue, MoM delta, and MADCAPP eligibility flag.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- YouTube Digest -->
+        <section class="module-panel" id="panel-youtube-digest">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 04</div>
+            <div class="placeholder-title">YouTube Analytics Digest</div>
+            <div class="placeholder-desc">Upload YouTube Studio screenshots. Claude Vision extracts CPM, RPM, views, watch time, and demographics. Outputs a territory-level performance brief.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- Email Drafter -->
+        <section class="module-panel" id="panel-email-drafter">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 05</div>
+            <div class="placeholder-title">Client Email Drafter</div>
+            <div class="placeholder-desc">Input recipient context, purpose, and tone register. Claude generates a polished, ready-to-send draft. Registers: onboarding, pitch, renewal, exit, negotiation, update.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- Meeting Log -->
+        <section class="module-panel" id="panel-meeting-log">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 06</div>
+            <div class="placeholder-title">Meeting Log</div>
+            <div class="placeholder-desc">Paste notes or a transcript. Claude extracts date, attendees, decisions, action items, owners, and deadlines. Saved as a structured searchable log entry.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- MADCAPP Estimator -->
+        <section class="module-panel" id="panel-madcapp-estimator">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 07</div>
+            <div class="placeholder-title">MADCAPP Advance Estimator</div>
+            <div class="placeholder-desc">Input artist name and 12-month FUGA revenue. System applies the MADCAPP advance formula and generates a structured DOCX term sheet with advance amount and repayment structure.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- Campaign Planner -->
+        <section class="module-panel" id="panel-campaign-planner">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 08</div>
+            <div class="placeholder-title">Release Campaign Planner</div>
+            <div class="placeholder-desc">Input artist, release title, date, genre, territories, and budget tier. Claude generates a structured 0-30 / 30-90 / 90-180 day plan with platform tactics and MADCAPP funding note.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+        <!-- Data Proof Builder -->
+        <section class="module-panel" id="panel-data-proof">
+          <div class="module-placeholder">
+            <div class="placeholder-tag">MODULE 09</div>
+            <div class="placeholder-title">Data Proof Builder</div>
+            <div class="placeholder-desc">Describe a claim. Upload relevant exports or screenshots. Claude extracts numbers, cross-references sources, and builds a structured numbered evidence document with confidence ratings.</div>
+            <div class="placeholder-status">NOT YET BUILT</div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
