@@ -46,7 +46,7 @@ html, body {
   width: var(--sidebar-w);
   min-width: var(--sidebar-w);
   background: var(--bg-sidebar);
-  border-right: 0.5px solid var(--border);
+  border-right: 1px solid #2a2a3a;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -100,17 +100,17 @@ html, body {
   gap: 10px;
   padding: 9px 16px;
   cursor: pointer;
-  border-left: 2px solid transparent;
+  border-left: 3px solid transparent;
   transition: background 0.1s, border-color 0.1s;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .nav-item.active {
-  border-left-color: var(--accent);
-  background: rgba(255, 255, 255, 0.05);
+  border-left-color: #ffffff;
+  background: rgba(255, 255, 255, 0.09);
 }
 
 .nav-index {
