@@ -277,3 +277,215 @@ html, body {
   padding: 3px 8px;
   text-transform: uppercase;
 }
+
+/* ── Module Layout (two-column) ── */
+.module-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+  height: calc(100vh - var(--topbar-h) - 64px);
+}
+
+.input-col,
+.output-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.col-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.col-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+/* ── Fields ── */
+.field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.field-input {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 12px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color 0.1s;
+}
+
+.field-input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.field-input::placeholder {
+  color: var(--text-dim);
+}
+
+/* ── Textarea ── */
+.report-textarea {
+  flex: 1;
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 12px;
+  outline: none;
+  resize: none;
+  transition: border-color 0.1s;
+}
+
+.report-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.report-textarea::placeholder {
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ── Action Row ── */
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: opacity 0.1s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+.btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--text-primary);
+}
+
+.btn-secondary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ── Status Label ── */
+.status-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.status-label.generating { color: #3dffa0; }
+.status-label.error      { color: #ff6b6b; }
+
+/* ── Report Output ── */
+.output-col {
+  overflow: hidden;
+}
+
+.report-output {
+  flex: 1;
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.report-output::-webkit-scrollbar { width: 4px; }
+.report-output::-webkit-scrollbar-track { background: transparent; }
+.report-output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.output-empty {
+  font-size: 12px;
+  color: var(--text-dim);
+  padding: 8px 0;
+}
+
+/* ── Rendered Report Sections ── */
+.report-section-header {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 20px 0 6px;
+  padding-bottom: 4px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.report-section-header:first-child { margin-top: 0; }
+
+.report-line {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.report-line strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.report-empty-line {
+  height: 6px;
+}

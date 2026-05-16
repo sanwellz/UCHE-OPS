@@ -80,11 +80,40 @@
 
         <!-- Weekly GM Report -->
         <section class="module-panel active" id="panel-weekly-report">
-          <div class="module-placeholder">
-            <div class="placeholder-tag">MODULE 01</div>
-            <div class="placeholder-title">Weekly GM Report Builder</div>
-            <div class="placeholder-desc">Paste or upload departmental inputs. Claude consolidates, flags anomalies, and outputs a formatted PDF or DOCX for the CEO in under 10 minutes.</div>
-            <div class="placeholder-status">NOT YET BUILT</div>
+          <div class="module-layout">
+
+            <!-- Input Column -->
+            <div class="input-col">
+              <div class="col-header">
+                <span class="col-tag">MODULE 01</span>
+                <span class="col-title">DEPARTMENTAL INPUTS</span>
+              </div>
+              <div class="field-row">
+                <label class="field-label" for="week-ending">WEEK ENDING</label>
+                <input type="text" id="week-ending" class="field-input" placeholder="e.g. 16 May 2026" />
+              </div>
+              <textarea
+                id="report-input"
+                class="report-textarea"
+                placeholder="Paste departmental notes here. Include anything from Operations, Distribution, Content, and Finance. Raw notes are fine — Claude will structure it."></textarea>
+              <div class="action-row">
+                <button id="generate-btn" class="btn-primary" onclick="generateWeeklyReport()">GENERATE REPORT</button>
+                <button id="download-btn" class="btn-secondary" disabled onclick="downloadReport()">DOWNLOAD DOCX</button>
+                <span id="report-status" class="status-label"></span>
+              </div>
+            </div>
+
+            <!-- Output Column -->
+            <div class="output-col">
+              <div class="col-header">
+                <span class="col-tag">OUTPUT</span>
+                <span class="col-title">GM REPORT</span>
+              </div>
+              <div id="report-output" class="report-output">
+                <div class="output-empty">Report will appear here once generated.</div>
+              </div>
+            </div>
+
           </div>
         </section>
 
