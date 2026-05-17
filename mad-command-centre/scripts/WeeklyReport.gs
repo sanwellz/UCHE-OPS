@@ -1,27 +1,26 @@
 function setupWeeklyReportsSheet() {
-  var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  var sheet = ss.getSheetByName('Weekly Reports');
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Weekly Reports');
   if (!sheet) {
     SpreadsheetApp.getUi().alert('Weekly Reports tab not found.');
     return;
   }
 
   var headers = ['Week Ending', 'Date Saved', 'Report Summary', 'Full Report Doc Link', 'Status'];
-  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-  sheet.getRange(1, 1, 1, headers.length)
+
+  sheet.getRange(1, 1, 1, 5)
+    .setValues([headers])
     .setBackground('#0a0e1a')
     .setFontColor('#ffffff')
     .setFontWeight('bold')
     .setFontSize(10)
     .setVerticalAlignment('middle');
+
   sheet.setFrozenRows(1);
-  sheet.setRowHeight(1, 32);
-  sheet.setColumnWidth(1, 140);
-  sheet.setColumnWidth(2, 160);
+  sheet.setRowHeights(1, 1, 32);
+  sheet.setColumnWidths(1, 5, 160);
   sheet.setColumnWidth(3, 420);
-  sheet.setColumnWidth(4, 200);
-  sheet.setColumnWidth(5, 100);
-  SpreadsheetApp.getUi().alert('Weekly Reports sheet configured correctly.');
+
+  SpreadsheetApp.getUi().alert('Done.');
 }
 
 function saveWeeklyReport() {
