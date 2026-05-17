@@ -4,9 +4,7 @@ function setupWeeklyReportsSheet() {
     SpreadsheetApp.getUi().alert('Weekly Reports tab not found.');
     return;
   }
-
   var headers = ['Week Ending', 'Date Saved', 'Report Summary', 'Full Report Doc Link', 'Status'];
-
   sheet.getRange(1, 1, 1, 5)
     .setValues([headers])
     .setBackground('#0a0e1a')
@@ -14,12 +12,10 @@ function setupWeeklyReportsSheet() {
     .setFontWeight('bold')
     .setFontSize(10)
     .setVerticalAlignment('middle');
-
   sheet.setFrozenRows(1);
   sheet.setRowHeights(1, 1, 32);
   sheet.setColumnWidths(1, 5, 160);
   sheet.setColumnWidth(3, 420);
-
   SpreadsheetApp.getUi().alert('Done.');
 }
 
@@ -37,63 +33,50 @@ function saveWeeklyReport() {
     '.status{margin-top:12px;font-size:11px;color:#444;line-height:1.5;}' +
     'a{color:#0a0e1a;font-weight:bold;}' +
     '</style></head><body>' +
-    '<div class="field">' +
-    '<label>Week Ending</label>' +
-    '<input type="text" id="weekEnding" placeholder="e.g. 16 May 2026" />' +
-    '</div>' +
-    '<div class="field">' +
-    '<label>Full Report Text (paste from Claude)</label>' +
-    '<textarea id="reportText" placeholder="Paste the structured report text here..."></textarea>' +
-    '</div>' +
+    '<div class="field"><label>Week Ending</label>' +
+    '<input type="text" id="weekEnding" placeholder="e.g. 16 May 2026" /></div>' +
+    '<div class="field"><label>Full Report Text (paste from Claude)</label>' +
+    '<textarea id="reportText" placeholder="Paste the structured report text here..."></textarea></div>' +
     '<button class="btn" id="saveBtn" onclick="submit()">SAVE REPORT</button>' +
     '<div class="status" id="status"></div>' +
     '<script>' +
     'function submit(){' +
-    '  var weekEnding=document.getElementById("weekEnding").value.trim();' +
-    '  var reportText=document.getElementById("reportText").value.trim();' +
-    '  if(!weekEnding){document.getElementById("status").innerText="Week ending date is required.";return;}' +
-    '  if(!reportText){document.getElementById("status").innerText="Report text is required.";return;}' +
-    '  document.getElementById("status").innerText="Saving report and creating Doc...";' +
+    '  var w=document.getElementById("weekEnding").value.trim();' +
+    '  var r=document.getElementById("reportText").value.trim();' +
+    '  if(!w){document.getElementById("status").innerText="Week ending date is required.";return;}' +
+    '  if(!r){document.getElementById("status").innerText="Report text is required.";return;}' +
+    '  document.getElementById("status").innerText="Saving...";' +
     '  document.getElementById("saveBtn").disabled=true;' +
     '  google.script.run' +
     '    .withSuccessHandler(function(url){' +
-    '      document.getElementById("status").innerHTML="Report saved. <a href=\'"+url+"\' target=\'_blank\'>Open Doc</a>";' +
+    '      document.getElementById("status").innerHTML="Saved. <a href=\'"+url+"\' target=\'_blank\'>Open Doc</a>";' +
     '    })' +
-    '    .withFailureHandler(function(err){' +
-    '      document.getElementById("status").innerText="Error: "+err.message;' +
+    '    .withFailureHandler(function(e){' +
+    '      document.getElementById("status").innerText="Error: "+e.message;' +
     '      document.getElementById("saveBtn").disabled=false;' +
     '    })' +
-    '    .processWeeklyReport(weekEnding,reportText);' +
+    '    .processWeeklyReport(w,r);' +
     '}' +
-    '</script>' +
-    '</body></html>';
+    '</script></body></html>';
 
-  var dialog = HtmlService.createHtmlOutput(html)
-    .setWidth(500)
-    .setHeight(480);
-  SpreadsheetApp.getUi().showModalDialog(dialog, 'Save Weekly GM Report');
+  SpreadsheetApp.getUi().showModalDialog(
+    HtmlService.createHtmlOutput(html).setWidth(500).setHeight(480),
+    'Save Weekly GM Report'
+  );
 }
 
 function processWeeklyReport(weekEnding, reportText) {
-  var summary = reportText.length > 200
-    ? reportText.substring(0, 200) + '...'
-    : reportText;
+  var summary = reportText.length > 200 ? reportText.substring(0, 200) + '...' : reportText;
+  var docUrl = createWeeklyReportDoc('MAD Solutions GM Report - Week Ending ' + weekEnding, weekEnding, reportText);
 
-  var docTitle = 'MAD Solutions GM Report - Week Ending ' + weekEnding;
-  var docUrl = createWeeklyReportDoc(docTitle, weekEnding, reportText);
-
-  var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  var sheet = ss.getSheetByName('Weekly Reports');
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Weekly Reports');
   var dateSaved = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd MMM yyyy, HH:mm');
 
   sheet.appendRow([weekEnding, dateSaved, summary, '', 'Saved']);
-
   var lastRow = sheet.getLastRow();
-
   if (lastRow % 2 === 0) {
     sheet.getRange(lastRow, 1, 1, 5).setBackground('#f8f8fc');
   }
-
   sheet.getRange(lastRow, 4).setFormula('=HYPERLINK("' + docUrl + '","Open Report")');
 
   return docUrl;
@@ -106,13 +89,20 @@ function createWeeklyReportDoc(title, weekEnding, reportText) {
   var doc = DocumentApp.create(title);
   var body = doc.getBody();
   body.clear();
-
   body.setMarginTop(36);
   body.setMarginBottom(36);
   body.setMarginLeft(54);
   body.setMarginRight(54);
 
-  // Dark header block via table
+  // Set body default style once — avoids formatting every line individually
+  var bodyStyle = {};
+  bodyStyle[DocumentApp.Attribute.FONT_FAMILY] = 'Arial';
+  bodyStyle[DocumentApp.Attribute.FONT_SIZE] = 10;
+  bodyStyle[DocumentApp.Attribute.FOREGROUND_COLOR] = '#222233';
+  bodyStyle[DocumentApp.Attribute.BOLD] = false;
+  body.setAttributes(bodyStyle);
+
+  // Dark header block
   var headerTable = body.appendTable([['']]);
   headerTable.setBorderWidth(0);
   var cell = headerTable.getCell(0, 0);
@@ -123,63 +113,33 @@ function createWeeklyReportDoc(title, weekEnding, reportText) {
   cell.setPaddingRight(24);
 
   var companyLine = cell.insertParagraph(0, 'M.A.D SOLUTIONS');
-  companyLine.editAsText()
-    .setFontFamily('Arial')
-    .setFontSize(8)
-    .setForegroundColor('#9a9aaa')
-    .setBold(true);
-  companyLine.setSpacingAfter(4);
+  companyLine.editAsText().setFontSize(8).setForegroundColor('#9a9aaa').setBold(true);
 
   var titleLine = cell.insertParagraph(1, 'Weekly GM Report');
-  titleLine.editAsText()
-    .setFontFamily('Arial')
-    .setFontSize(20)
-    .setForegroundColor('#ffffff')
-    .setBold(true);
-  titleLine.setSpacingAfter(6);
+  titleLine.editAsText().setFontSize(20).setForegroundColor('#ffffff').setBold(true);
 
   var weekLine = cell.insertParagraph(2, 'Week ending: ' + weekEnding);
-  weekLine.editAsText()
-    .setFontFamily('Arial')
-    .setFontSize(10)
-    .setForegroundColor('#9a9aaa')
-    .setBold(false);
+  weekLine.editAsText().setFontSize(10).setForegroundColor('#9a9aaa').setBold(false);
 
-  body.appendParagraph('').setSpacingAfter(6);
+  body.appendParagraph('');
 
-  // Parse and write report body
+  // Write report body — only section headers get individual formatting
   var lines = reportText.split('\n');
-
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i].trim();
-
     if (!line) {
-      body.appendParagraph('').setSpacingAfter(2);
+      body.appendParagraph('');
       continue;
     }
-
     var sectionMatch = line.match(/^\*\*([^*]+)\*\*$/);
     if (sectionMatch) {
-      var sectionName = sectionMatch[1].trim().toUpperCase();
-      var sp = body.appendParagraph(sectionName);
+      var sp = body.appendParagraph(sectionMatch[1].trim().toUpperCase());
       sp.setSpacingBefore(14);
       sp.setSpacingAfter(4);
-      sp.editAsText()
-        .setFontFamily('Arial')
-        .setFontSize(9)
-        .setForegroundColor('#0a0e1a')
-        .setBold(true);
-      continue;
+      sp.editAsText().setFontSize(9).setForegroundColor('#0a0e1a').setBold(true);
+    } else {
+      body.appendParagraph(line.replace(/\*\*([^*]+)\*\*/g, '$1'));
     }
-
-    var cleaned = line.replace(/\*\*([^*]+)\*\*/g, '$1');
-    var bp = body.appendParagraph(cleaned);
-    bp.setSpacingAfter(3);
-    bp.editAsText()
-      .setFontFamily('Arial')
-      .setFontSize(10)
-      .setForegroundColor('#222233')
-      .setBold(false);
   }
 
   doc.saveAndClose();
