@@ -106,7 +106,7 @@ function createWeeklyReportDoc(title, weekEnding, reportText) {
   var headerTable = body.appendTable([['']]);
   headerTable.setBorderWidth(0);
   var cell = headerTable.getCell(0, 0);
-  cell.setBackground('#0a0e1a');
+  cell.setBackgroundColor('#0a0e1a');
   cell.setPaddingTop(20);
   cell.setPaddingBottom(20);
   cell.setPaddingLeft(24);
