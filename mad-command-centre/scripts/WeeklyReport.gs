@@ -16,7 +16,7 @@ function setupWeeklyReportsSheet() {
   sheet.setRowHeights(1, 1, 32);
   sheet.setColumnWidths(1, 5, 160);
   sheet.setColumnWidth(3, 420);
-  SpreadsheetApp.getUi().alert('Done.');
+  SpreadsheetApp.getActiveSpreadsheet().toast('Weekly Reports sheet configured.', 'Done', 5);
 }
 
 function saveWeeklyReport() {
